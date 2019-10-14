@@ -6,14 +6,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.support.annotation.IntDef;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
@@ -21,11 +18,6 @@ public class StatusBarUtil {
     public final static int TYPE_MIUI = 0;
     public final static int TYPE_FLYME = 1;
     public final static int TYPE_M = 3;//6.0
-
-    @IntDef({TYPE_MIUI, TYPE_FLYME, TYPE_M})
-    @Retention(RetentionPolicy.SOURCE)
-    @interface ViewType {
-    }
 
     /**
      * 修改状态栏颜色，支持4.4以上版本
@@ -117,7 +109,8 @@ public class StatusBarUtil {
     /**
      * 设置 状态栏深色浅色切换
      */
-    public static boolean setStatusBarFontIconDark(Activity activity, @ViewType int type,boolean dark) {
+//    public static boolean setStatusBarFontIconDark(Activity activity, @ViewType int type,boolean dark) {
+    public static boolean setStatusBarFontIconDark(Activity activity, int type,boolean dark) {
         switch (type) {
             case TYPE_MIUI:
                 return setMiuiUI(activity, dark);
