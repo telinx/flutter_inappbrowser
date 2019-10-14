@@ -16,6 +16,7 @@ import android.widget.FrameLayout;
 import com.pichillilorenzo.flutter_inappbrowser.FlutterWebView;
 import com.pichillilorenzo.flutter_inappbrowser.InAppBrowserActivity;
 import com.pichillilorenzo.flutter_inappbrowser.InAppBrowserFlutterPlugin;
+import com.pichillilorenzo.flutter_inappbrowser.R;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -108,6 +109,19 @@ public class InAppWebChromeClient extends WebChromeClient {
       }
       if (progress == 100) {
         inAppBrowserActivity.progressBar.setVisibility(View.GONE);
+        if (view.canGoBack()) {
+        inAppBrowserActivity.ivBack.setBackgroundResource(R.drawable.arrow_left);
+        } else {
+          inAppBrowserActivity.ivBack.setBackgroundResource(R.drawable.arrow_left_unactive);
+        }
+        if (view.canGoForward()) {
+          inAppBrowserActivity.ivForward.setBackgroundResource(R.drawable.arrow_right);
+        } else {
+          inAppBrowserActivity.ivForward.setBackgroundResource(R.drawable.arrow_right_unactive);
+        }
+        String title = view.getUrl();
+        title = title.replace("https://", "").replace("http://", "").split("/")[0];
+        inAppBrowserActivity.tvTitle.setText(title);
       }
     }
 

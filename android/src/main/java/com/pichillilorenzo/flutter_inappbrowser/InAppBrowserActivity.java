@@ -1,11 +1,11 @@
 package com.pichillilorenzo.flutter_inappbrowser;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Picture;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,8 +16,11 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.pichillilorenzo.flutter_inappbrowser.InAppWebView.InAppWebView;
 import com.pichillilorenzo.flutter_inappbrowser.InAppWebView.InAppWebViewOptions;
@@ -33,17 +36,20 @@ import io.flutter.plugin.common.MethodChannel;
 
 public class InAppBrowserActivity extends AppCompatActivity {
 
-  static final String LOG_TAG = "InAppBrowserActivity";
-  public String uuid;
-  public InAppWebView webView;
-  public ActionBar actionBar;
-  public Menu menu;
-  public SearchView searchView;
-  public InAppBrowserOptions options;
-  public Map<String, String> headers;
-  public ProgressBar progressBar;
-  public boolean isHidden = false;
-  public String fromActivity;
+    static final String LOG_TAG = "InAppBrowserActivity";
+    public String uuid;
+    public InAppWebView webView;
+    public ActionBar actionBar;
+    public Menu menu;
+    public SearchView searchView;
+    public InAppBrowserOptions options;
+    public Map<String, String> headers;
+    public ProgressBar progressBar;
+    public boolean isHidden = false;
+    public String fromActivity;
+    public ImageView ivClose, ivMore, ivBack, ivForward;
+    public RelativeLayout back_layout, forward_layout;
+    public TextView tvTitle;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +77,9 @@ public class InAppBrowserActivity extends AppCompatActivity {
 
     actionBar = getSupportActionBar();
 
+    initView();
     prepareView();
-
+    actionBar.hide();
     Boolean isData = b.getBoolean("isData");
     if (!isData) {
       headers = (HashMap<String, String>) b.getSerializable("headers");
@@ -91,7 +98,42 @@ public class InAppBrowserActivity extends AppCompatActivity {
     obj.put("uuid", uuid);
     InAppBrowserFlutterPlugin.channel.invokeMethod("onBrowserCreated", obj);
 
-  }
+    }
+
+    private void initView() {
+      tvTitle = (TextView) findViewById(R.id.tv_title);
+      ivClose = (ImageView) findViewById(R.id.iv_close);
+      ivMore = (ImageView) findViewById(R.id.iv_more);
+      ivBack = (ImageView) findViewById(R.id.iv_back);
+      ivForward = (ImageView) findViewById(R.id.iv_forward);
+      back_layout = (RelativeLayout) findViewById(R.id.back_layout);
+      forward_layout = (RelativeLayout) findViewById(R.id.forward_layout);
+      ivClose.setOnClickListener(onClickListener);
+      ivMore.setOnClickListener(onClickListener);
+      back_layout.setOnClickListener(onClickListener);
+      forward_layout.setOnClickListener(onClickListener);
+    }
+
+    View.OnClickListener onClickListener =new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            int i = v.getId();
+            if (i == R.id.iv_close) {
+              InAppBrowserFlutterPlugin.close(InAppBrowserActivity.this, uuid, null);
+            } else if (i == R.id.iv_more) {
+                Intent share = new Intent(Intent.ACTION_SEND);
+                share.setType("text/plain");
+                share.putExtra(Intent.EXTRA_TEXT, webView.getUrl());
+                startActivity(Intent.createChooser(share, "Share"));
+            } else if (i == R.id.back_layout) {
+                goBack();
+            } else if (i == R.id.forward_layout) {
+                goForward();
+            }
+        }
+    };
+
+
 
   private void prepareView() {
 
@@ -103,7 +145,7 @@ public class InAppBrowserActivity extends AppCompatActivity {
       show();
 
     progressBar = findViewById(R.id.progressBar);
-
+    progressBar.getProgressDrawable().setColorFilter(Color.rgb(252, 66, 169), PorterDuff.Mode.SRC_IN);
     if (!options.progressBar)
       progressBar.setMax(0);
     else

@@ -206,7 +206,7 @@ public class InAppWebView extends WebView {
   }
 
   public void loadUrl(String url, MethodChannel.Result result) {
-    if (!url.isEmpty()) {
+    if (!url.isEmpty() && (url.startsWith("https://") || url.startsWith("http://"))) {
       loadUrl(url);
     } else {
       result.error(LOG_TAG, "url is empty", null);
@@ -216,7 +216,7 @@ public class InAppWebView extends WebView {
   }
 
   public void loadUrl(String url, Map<String, String> headers, MethodChannel.Result result) {
-    if (!url.isEmpty()) {
+    if (!url.isEmpty() && (url.startsWith("https://") || url.startsWith("http://"))) {
       loadUrl(url, headers);
     } else {
       result.error(LOG_TAG, "url is empty", null);
@@ -226,7 +226,7 @@ public class InAppWebView extends WebView {
   }
 
   public void postUrl(String url, byte[] postData, MethodChannel.Result result) {
-    if (!url.isEmpty()) {
+    if (!url.isEmpty() && (url.startsWith("https://") || url.startsWith("http://"))) {
       postUrl(url, postData);
     } else {
       result.error(LOG_TAG, "url is empty", null);
