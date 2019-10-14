@@ -104,6 +104,7 @@ public class InAppWebChromeClient extends WebChromeClient {
     if(inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null && null != title){
       if(null == inAppBrowserActivity.tvTitle.getText() ||  inAppBrowserActivity.tvTitle.getText().length() < 1 ||title.indexOf(String.valueOf(inAppBrowserActivity.tvTitle.getText())) < 0){
         title = title.replace("https://", "").replace("http://", "").split("/")[0];
+        title = title.length() > 21 ? title.substring(0, 21) + "..." : title;
         inAppBrowserActivity.tvTitle.setText(title);
       }
 
