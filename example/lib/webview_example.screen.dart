@@ -87,7 +87,7 @@ class _WebviewExampleScreenState extends State<WebviewExampleScreen> {
       child: new RaisedButton(
           onPressed: ()  {
             widget.browser.open(
-                url: "https://google.com",
+                url: "https://36kr.com",
                 options: {
                   "useShouldOverrideUrlLoading": true,
                   "useOnLoadResource": true,

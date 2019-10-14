@@ -100,6 +100,14 @@ public class InAppWebChromeClient extends WebChromeClient {
 
   @Override
   public void onProgressChanged(WebView view, int progress) {
+    String title = view.getUrl();
+    if(inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null && null != title){
+      if(null == inAppBrowserActivity.tvTitle.getText() ||  inAppBrowserActivity.tvTitle.getText().length() < 1 ||title.indexOf(String.valueOf(inAppBrowserActivity.tvTitle.getText())) < 0){
+        title = title.replace("https://", "").replace("http://", "").split("/")[0];
+        inAppBrowserActivity.tvTitle.setText(title);
+      }
+
+    }
     if (inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null) {
       inAppBrowserActivity.progressBar.setVisibility(View.VISIBLE);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -119,9 +127,7 @@ public class InAppWebChromeClient extends WebChromeClient {
         } else {
           inAppBrowserActivity.ivForward.setBackgroundResource(R.drawable.arrow_right_unactive);
         }
-        String title = view.getUrl();
-        title = title.replace("https://", "").replace("http://", "").split("/")[0];
-        inAppBrowserActivity.tvTitle.setText(title);
+
       }
     }
 
