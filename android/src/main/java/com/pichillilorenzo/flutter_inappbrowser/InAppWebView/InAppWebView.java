@@ -520,10 +520,11 @@ public class InAppWebView extends WebView {
 //    }else{
 //      this.webYInt = y;
 //    }
+
     if(t > oldt  && this.isBottomBarShow){
       this.isBottomBarShow = false;
       // this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
-      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("90.0"));
+      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("130.0"));
     }if(oldt > t  && !this.isBottomBarShow){
       this.isBottomBarShow = true;
       // this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);

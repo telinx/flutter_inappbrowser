@@ -7,7 +7,7 @@ class MyInappBrowser extends InAppBrowser {
 
  @override
  Future onBrowserCreated() async {
-   print("\n\nBrowser Ready!\n\n");
+  //  print("\n\nBrowser Ready!\n\n");
  }
 
  @override
@@ -17,54 +17,54 @@ class MyInappBrowser extends InAppBrowser {
 
  @override
  Future onLoadStop(String url) async {
-   print("\n\nStopped $url\n\n");
+  //  print("\n\nStopped $url\n\n");
  }
 
  @override
  Future onScrollChanged(int x, int y) async {
-   print("Scrolled: x:$x y:$y");
+  //  print("Scrolled: x:$x y:$y");
  }
 
  @override
  void onLoadError(String url, int code, String message) {
-   print("Can't load $url.. Error: $message");
+  //  print("Can't load $url.. Error: $message");
  }
 
  @override
  void onProgressChanged(int progress) {
-   print("Progress: $progress");
+  //  print("Progress: $progress");
  }
 
  @override
  void onExit() {
-   print("\n\nBrowser closed!\n\n");
+  //  print("\n\nBrowser closed!\n\n");
  }
 
  @override
  void shouldOverrideUrlLoading(String url) {
-   print("\n\n override $url\n\n");
+  //  print("\n\n override $url\n\n");
    this.webViewController.loadUrl(url);
  }
 
  @override
  void onLoadResource(WebResourceResponse response, WebResourceRequest request) {
-   print("Started at: " +
-       response.startTime.toString() +
-       "ms ---> duration: " +
-       response.duration.toString() +
-       "ms " +
-       response.url);
+  //  print("Started at: " +
+  //      response.startTime.toString() +
+  //      "ms ---> duration: " +
+  //      response.duration.toString() +
+  //      "ms " +
+      //  response.url);
  }
 
  @override
  void onConsoleMessage(ConsoleMessage consoleMessage) {
-   print("""
-    console output:
-      sourceURL: ${consoleMessage.sourceURL}
-      lineNumber: ${consoleMessage.lineNumber}
-      message: ${consoleMessage.message}
-      messageLevel: ${consoleMessage.messageLevel}
-   """);
+  //  print("""
+  //   console output:
+  //     sourceURL: ${consoleMessage.sourceURL}
+  //     lineNumber: ${consoleMessage.lineNumber}
+  //     message: ${consoleMessage.message}
+  //     messageLevel: ${consoleMessage.messageLevel}
+  //  """);
  }
   
 }
@@ -87,10 +87,17 @@ class _WebviewExampleScreenState extends State<WebviewExampleScreen> {
       child: new RaisedButton(
           onPressed: ()  {
             widget.browser.open(
-                url: "https://36kr.com",
+              // InAppBrowser().open(
+                // url: "https://36kr.com",
+                url: "https://okmagazine.com/photos/brittany-aldean-emotional-tribute-grandmother-dog-died-same-day-instagram/",
+                // url: "https://www.teenvogue.com/story/fans-mourning-loss-cameron-boyce",
+                // url: "http://www.kidsir.com/",
                 options: {
                   "useShouldOverrideUrlLoading": true,
                   "useOnLoadResource": true,
+                  "databaseEnabled": true,
+                  "domStorageEnabled": true,
+                  "safeBrowsingEnabled":false
                 }
             );
           },

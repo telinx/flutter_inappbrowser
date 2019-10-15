@@ -107,8 +107,14 @@ public class InAppWebChromeClient extends WebChromeClient {
         title = title.length() > 21 ? title.substring(0, 21) + "..." : title;
         inAppBrowserActivity.tvTitle.setText(title);
       }
-
     }
+    
+    if (!view.canGoBack() && !view.canGoForward()) {
+      this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
+    }else {
+      this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
+    }
+
     if (inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null) {
       inAppBrowserActivity.progressBar.setVisibility(View.VISIBLE);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
