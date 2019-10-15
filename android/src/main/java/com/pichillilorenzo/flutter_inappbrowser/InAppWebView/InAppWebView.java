@@ -16,6 +16,7 @@ import android.webkit.WebBackForwardList;
 import android.webkit.WebHistoryItem;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
+import android.view.View;
 
 import com.pichillilorenzo.flutter_inappbrowser.FlutterWebView;
 import com.pichillilorenzo.flutter_inappbrowser.InAppBrowserActivity;
@@ -50,6 +51,8 @@ public class InAppWebView extends WebView {
   public boolean isLoading = false;
   OkHttpClient httpClient;
   int okHttpClientCacheSize = 10 * 1024 * 1024; // 10MB
+  int webYInt = 0;
+  public boolean isBottomBarShow = false;
 
   static final String consoleLogJS = "(function() {" +
           "   var oldLogs = {" +
@@ -504,12 +507,37 @@ public class InAppWebView extends WebView {
     float scale = getResources().getDisplayMetrics().density;
     int x = (int) (l/scale);
     int y = (int) (t/scale);
+    int oldy = (int) (oldt/scale);
+
+//    if(y - this.webYInt > 2 && this.isBottomBarShow){
+//      this.isBottomBarShow = false;
+//      // this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
+//      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("90.0"));
+//    }if(this.webYInt - y > 2 && !this.isBottomBarShow){
+//      this.isBottomBarShow = true;
+//      // this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
+//      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("0.0"));
+//    }else{
+//      this.webYInt = y;
+//    }
+    if(t > oldt  && this.isBottomBarShow){
+      this.isBottomBarShow = false;
+      // this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
+      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("90.0"));
+    }if(oldt > t  && !this.isBottomBarShow){
+      this.isBottomBarShow = true;
+      // this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
+      this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("0.0"));
+    }else{
+      this.webYInt = t;
+    }
 
     Map<String, Object> obj = new HashMap<>();
     if (inAppBrowserActivity != null)
       obj.put("uuid", inAppBrowserActivity.uuid);
     obj.put("x", x);
     obj.put("y", y);
+
     getChannel().invokeMethod("onScrollChanged", obj);
   }
 

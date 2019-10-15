@@ -50,6 +50,8 @@ public class InAppBrowserActivity extends AppCompatActivity {
     public ImageView ivClose, ivMore, ivBack, ivForward;
     public RelativeLayout back_layout, forward_layout;
     public TextView tvTitle;
+    public View bottomBar;
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -117,6 +119,7 @@ public class InAppBrowserActivity extends AppCompatActivity {
   }
 
     private void initView() {
+      bottomBar = findViewById(R.id.bottomBar);
       tvTitle = (TextView) findViewById(R.id.tv_title);
       ivClose = (ImageView) findViewById(R.id.iv_close);
       ivMore = (ImageView) findViewById(R.id.iv_more);
