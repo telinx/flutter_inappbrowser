@@ -102,13 +102,15 @@ public class InAppWebChromeClient extends WebChromeClient {
   public void onProgressChanged(WebView view, int progress) {
     String title = view.getUrl();
     if(inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null && null != title){
-      if(null == inAppBrowserActivity.tvTitle.getText() ||  inAppBrowserActivity.tvTitle.getText().length() < 1 ||title.indexOf(String.valueOf(inAppBrowserActivity.tvTitle.getText())) < 0){
+      if(title.indexOf("blank") >= 0){
+        inAppBrowserActivity.tvTitle.setText("");
+      }else if(null == inAppBrowserActivity.tvTitle.getText() ||  inAppBrowserActivity.tvTitle.getText().length() < 1 ||title.indexOf(String.valueOf(inAppBrowserActivity.tvTitle.getText())) < 0){
         title = title.replace("https://", "").replace("http://", "").split("/")[0];
         title = title.length() > 21 ? title.substring(0, 21) + "..." : title;
         inAppBrowserActivity.tvTitle.setText(title);
       }
     }
-    
+
     if (!view.canGoBack() && !view.canGoForward()) {
       this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
     }else {

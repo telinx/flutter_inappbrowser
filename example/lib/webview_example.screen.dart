@@ -76,6 +76,7 @@ class WebviewExampleScreen extends StatefulWidget {
 }
 
 class _WebviewExampleScreenState extends State<WebviewExampleScreen> {
+  static InAppBrowser browser = InAppBrowser();
   @override
   void initState() {
     super.initState();
@@ -87,11 +88,13 @@ class _WebviewExampleScreenState extends State<WebviewExampleScreen> {
       child: new RaisedButton(
           onPressed: ()  {
             widget.browser.open(
-              // InAppBrowser().open(
+              // browser.open(
+                url: "https://36kr.com/p/5256612",
                 // url: "https://36kr.com",
-                url: "https://okmagazine.com/photos/brittany-aldean-emotional-tribute-grandmother-dog-died-same-day-instagram/",
+                // url: "https://okmagazine.com/photos/brittany-aldean-emotional-tribute-grandmother-dog-died-same-day-instagram/",
                 // url: "https://www.teenvogue.com/story/fans-mourning-loss-cameron-boyce",
                 // url: "http://www.kidsir.com/",
+                // url: "https://okmagazine.com/photos/eva-longoria-felicity-huffman-college-scandal-handled-with-grace/",
                 options: {
                   "useShouldOverrideUrlLoading": true,
                   "useOnLoadResource": true,
