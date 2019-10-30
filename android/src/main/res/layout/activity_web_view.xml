@@ -17,10 +17,10 @@
 
         <ImageView
             android:id="@+id/iv_close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="15dp"
             android:scaleType="center"
             android:src="@drawable/close" />
 
@@ -37,10 +37,10 @@
 
         <ImageView
             android:id="@+id/iv_more"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
             android:layout_gravity="center_vertical"
-            android:layout_marginRight="10dp"
+            android:layout_marginRight="15dp"
             android:scaleType="center"
             android:src="@drawable/more" />
     </LinearLayout>
