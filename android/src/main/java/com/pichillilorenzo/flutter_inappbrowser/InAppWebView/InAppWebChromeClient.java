@@ -110,14 +110,15 @@ public class InAppWebChromeClient extends WebChromeClient {
         inAppBrowserActivity.tvTitle.setText(title);
       }
     }
-
-    if (!view.canGoBack() && !view.canGoForward()) {
-      this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
-    }else {
-      this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
+    if(null != this.inAppBrowserActivity && null != this.inAppBrowserActivity.bottomBar){
+      if (!view.canGoBack() && !view.canGoForward()) {
+        this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
+      }else {
+        this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
+      }
     }
 
-    if (inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null) {
+    if (this.inAppBrowserActivity != null && inAppBrowserActivity.progressBar != null) {
       inAppBrowserActivity.progressBar.setVisibility(View.VISIBLE);
       if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
         inAppBrowserActivity.progressBar.setProgress(progress, true);
