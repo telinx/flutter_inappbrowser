@@ -521,11 +521,11 @@ public class InAppWebView extends WebView {
 //      this.webYInt = y;
 //    }
 
-    if(t > oldt  && this.isBottomBarShow){
+    if(t > oldt  && this.isBottomBarShow && null != this.inAppBrowserActivity && null != this.inAppBrowserActivity.bottomBar){
       this.isBottomBarShow = false;
       // this.inAppBrowserActivity.bottomBar.setVisibility(View.INVISIBLE);
       this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("130.0"));
-    }if(oldt > t  && !this.isBottomBarShow){
+    }if(oldt > t  && !this.isBottomBarShow && null != this.inAppBrowserActivity && null != this.inAppBrowserActivity.bottomBar){
       this.isBottomBarShow = true;
       // this.inAppBrowserActivity.bottomBar.setVisibility(View.VISIBLE);
       this.inAppBrowserActivity.bottomBar.animate().translationY(Float.valueOf("0.0"));
